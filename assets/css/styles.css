@@ -48,7 +48,7 @@ body{
 .nav-link:hover{ opacity: 1; }
 
 .container-narrow{
-  max-width: 980px;
+  max-width: 1300px;
 }
 
 .card{
@@ -126,3 +126,4 @@ a:hover{
 .toast-container{
   z-index: 1080;
 }
+
