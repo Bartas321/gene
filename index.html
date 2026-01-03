@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>GeneaPanel — genealogia</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/styles.css" rel="stylesheet">
+</head>
+<body data-page="index">
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container container-narrow">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+      <span class="brand-mark">G</span>
+      <span class="fw-bold">GeneaPanel</span>
+      <span class="badge badge-soft ms-2">beta</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="nav" class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item"><a class="nav-link" href="index.html">Start</a></li>
+        <li class="nav-item d-none" data-auth-dashboard><a class="nav-link" href="dashboard.html">Panel</a></li>
+        <li class="nav-item" data-auth-login><a class="btn btn-sm btn-accent" href="login.html">Zaloguj</a></li>
+        <li class="nav-item d-none" data-auth-logout><a class="btn btn-sm btn-outline-dark" href="logout.html">Wyloguj</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="toast-container position-fixed top-0 end-0 p-3"></div>
+
+<main class="container container-narrow py-5">
+  <div class="row g-4 align-items-center">
+    <div class="col-lg-7">
+      <div class="card p-4 p-lg-5">
+        <h1 class="mb-3 section-title">Twoje drzewo genealogiczne w uporządkowanym panelu</h1>
+        <p class="small-muted mb-4">
+          Proste narzędzie do budowania i przeglądania drzewa rodzinnego: osoby, relacje, notatki.
+          Styl inspirowany starymi dokumentami – czytelnie i bez chaosu.
+        </p>
+        <div class="d-flex gap-2 flex-wrap">
+          <button id="go-dashboard" class="btn btn-accent btn-lg">Przejdź do panelu</button>
+          <a class="btn btn-outline-dark btn-lg" href="register.html">Utwórz konto</a>
+        </div>
+        <hr class="my-4">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="kpi p-3">
+              <div class="fw-semibold">Intuicyjne</div>
+              <div class="small-muted">U góry menu, w środku drzewo.</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="kpi p-3">
+              <div class="fw-semibold">Bezpieczne</div>
+              <div class="small-muted">Docelowo: auth, role, OWASP.</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="kpi p-3">
+              <div class="fw-semibold">Multimedia</div>
+              <div class="small-muted">Docelowo: zdjęcia profili.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="footer-note mt-3">
+        Demo lokalne: logowanie i dane testowe trzymane w przeglądarce (localStorage). Potem podmienimy na backend + PostgreSQL.
+      </p>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card p-4">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <div class="fw-semibold">Podgląd przestrzeni roboczej</div>
+          <span class="badge badge-soft">Drzewo</span>
+        </div>
+        <div class="tree-placeholder">
+          <div class="small-muted mb-2">Tu docelowo pojawi się widok drzewa (graf).</div>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="badge badge-soft">Osoby</span>
+            <span class="badge badge-soft">Relacje</span>
+            <span class="badge badge-soft">Notatki</span>
+            <span class="badge badge-soft">Zdjęcia</span>
+          </div>
+          <div class="mt-3 small-muted">
+            Na teraz w panelu pokażemy listę osób + relacje. Graf dołożymy później.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
