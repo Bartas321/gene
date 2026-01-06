@@ -30,20 +30,39 @@
         <p class="small-muted">Konto jest lokalne (mock). Potem podepniemy rejestrację do backendu.</p>
 
         <form id="register-form" class="mt-4">
-          <div class="mb-3">
-            <label class="form-label">Nazwa wyświetlana</label>
-            <input id="displayName" class="form-control" placeholder="np. Jan" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input id="email" type="email" class="form-control" placeholder="np. jan@kowalski.pl" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Hasło</label>
-            <input id="password" type="password" class="form-control" placeholder="min. 6 znaków" minlength="6" required>
-          </div>
-          <button class="btn btn-accent w-100 btn-lg" type="submit">Zarejestruj</button>
-        </form>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Imię</label>
+      <input id="firstName" class="form-control" placeholder="np. Jan" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Nazwisko</label>
+      <input id="lastName" class="form-control" placeholder="np. Kowalski" required>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Email</label>
+      <input id="email" type="email" class="form-control" placeholder="np. kowalski@domain.com" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Nick</label>
+      <input id="displayName" class="form-control" placeholder="np. Janek" required>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Data urodzenia (opcjonalnie)</label>
+      <input id="birthDate" type="date" class="form-control">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Hasło</label>
+      <input id="password" type="password" class="form-control" placeholder="min. 6 znaków" minlength="6" required>
+    </div>
+
+    <div class="col-12">
+      <button class="btn btn-accent w-100 btn-lg" type="submit">Zarejestruj</button>
+    </div>
+  </div>
+</form>
 
         <div class="mt-3 small-muted">
           Masz konto? <a href="login.html">Zaloguj się</a>.

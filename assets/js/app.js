@@ -33,16 +33,30 @@ function logout(){
   window.location.href = "index.html";
 }
 
-function registerMock({email, password, displayName}){
+function registerMock({email, password, displayName, firstName, lastName, birthDate}){
   const users = LS.get(KEYS.users, []);
   if(users.some(u => u.email.toLowerCase() === email.toLowerCase())){
     throw new Error("Konto o tym emailu już istnieje.");
   }
-  const user = { id: uid("usr"), email, password, displayName };
+  const user = {
+    id: uid("usr"),
+    email,
+    password,
+    displayName,
+    firstName: firstName?.trim() || "",
+    lastName: lastName?.trim() || "",
+    birthDate: birthDate || ""
+  };
   users.push(user);
   LS.set(KEYS.users, users);
+
   // Auto-login
-  LS.set(KEYS.auth, { userId: user.id, email: user.email, displayName: user.displayName });
+  LS.set(KEYS.auth, {
+    userId: user.id,
+    email: user.email,
+    displayName: user.displayName
+  });
+
   seedIfEmpty(user.id);
 }
 
@@ -168,20 +182,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Register
   if(document.body.dataset.page === "register"){
-    const form = qs("#register-form");
-    form?.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const displayName = qs("#displayName").value.trim();
-      const email = qs("#email").value.trim();
-      const password = qs("#password").value;
-      try{
-        registerMock({email, password, displayName});
-        window.location.href = "dashboard.html";
-      }catch(err){
-        toast(err.message, "danger");
-      }
-    });
-  }
+  const form = qs("#register-form");
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const firstName = qs("#firstName").value.trim();
+    const lastName = qs("#lastName").value.trim();
+    const email = qs("#email").value.trim();
+    const displayName = qs("#displayName").value.trim();
+    const birthDate = qs("#birthDate").value;
+    const password = qs("#password").value;
+
+    try{
+      registerMock({email, password, displayName, firstName, lastName, birthDate});
+      window.location.href = "dashboard.html";
+    }catch(err){
+      toast(err.message, "danger");
+		}
+		});
+	}
 
   // Login
   if(document.body.dataset.page === "login"){
@@ -254,7 +272,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
     render();
   }
+  
+  //Profile
+  
+	if(document.body.dataset.page === "profile"){
+  requireAuth();
+  const auth = getAuth();
+  const users = LS.get(KEYS.users, []);
+  const u = users.find(x => x.id === auth.userId);
 
+  if(!u){
+    toast("Nie znaleziono danych użytkownika.", "danger");
+    window.location.href = "login.html";
+    return;
+  }
+
+  qs("#pfFirstName").value = u.firstName || "";
+  qs("#pfLastName").value = u.lastName || "";
+  qs("#pfEmail").value = u.email || "";
+  qs("#pfDisplayName").value = u.displayName || "";
+  qs("#pfBirthDate").value = u.birthDate || "";
+
+  qs("#profile-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    u.firstName = qs("#pfFirstName").value.trim();
+    u.lastName = qs("#pfLastName").value.trim();
+    u.displayName = qs("#pfDisplayName").value.trim();
+    u.birthDate = qs("#pfBirthDate").value || "";
+
+    LS.set(KEYS.users, users);
+
+    // aktualizacja auth (żeby navbar pokazywał nowe displayName)
+    LS.set(KEYS.auth, { ...auth, displayName: u.displayName });
+
+    toast("Zapisano dane profilu.", "success");
+    window.location.href = "dashboard.html";
+  });
+}
   // Tree view
   if(document.body.dataset.page === "tree"){
     requireAuth();
